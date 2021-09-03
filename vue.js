@@ -13,7 +13,7 @@
         (global.Vue = factory());
 }(this, (function() {
     'use strict';
-
+  
     /*  */
     //Object.freeze()阻止修改现有属性的特性和值，并阻止添加新属性。
     var emptyObject = Object.freeze({});
@@ -2122,7 +2122,7 @@
     function mergeOptions(parent, //父值
         child, //子值 优选取子值
         vm) {
-
+          debugger
         {
             //检验子组件
             checkComponents(child);
@@ -2178,7 +2178,7 @@
             options[key] = strat(parent[key], child[key], vm, key);
         }
 
-        //返回参数
+        //返回参数  生命周期 为数组 存在多个子组件生命周期
         return options
     }
 
@@ -3891,6 +3891,7 @@
 
     //初始化生命周期
     function initLifecycle(vm) {
+      debugger
         var options = vm.$options;
 
         // locate first non-abstract parent
@@ -6753,7 +6754,7 @@
     //初始化vue
     function initMixin(Vue) {
         Vue.prototype._init = function(options) { //初始化函数
-
+            debugger
             var vm = this;
             // a uid
             vm._uid = uid$3++; //id
@@ -6794,11 +6795,13 @@
             }
             // expose real self 暴露真实的self
             vm._self = vm;
+            debugger
             initLifecycle(vm); //初始化生命周期 标志
             initEvents(vm); //初始化事件
             initRender(vm); // 初始化渲染
             callHook(vm, 'beforeCreate'); //触发beforeCreate钩子函数
             initInjections(vm); // resolve injections before data/props 在数据/道具之前解决注入问题 //初始化 inject
+           
             initState(vm); //    //初始化状态
             initProvide(vm); // resolve provide after data/props  解决后提供数据/道具  provide 选项应该是一个对象或返回一个对象的函数。该对象包含可注入其子孙的属性，用于组件之间通信。
             callHook(vm, 'created'); //触发created钩子函数
@@ -6854,6 +6857,8 @@
 
     //解析new Vue constructor上的options拓展参数属性的 合并 过滤去重数据
     function resolveConstructorOptions(Ctor) {
+      console.log('Ctor', Ctor)
+      debugger
         var options = Ctor.options;
         // 有super属性，说明Ctor是Vue.extend构建的子类 继承的子类
         if (Ctor.super) { //超类
@@ -6939,7 +6944,7 @@
         }
         this._init(options);
     }
-
+    debugger
     initMixin(Vue); //初始化vue
     stateMixin(Vue); //数据绑定，$watch方法
     eventsMixin(Vue); // 初始化事件绑定方法
@@ -7380,7 +7385,7 @@
         //用来标识扩展所有普通对象的“基”构造函数
         // Weex的多实例场景中的组件。
         Vue.options._base = Vue;
-
+        debugger
         extend(Vue.options.components, builtInComponents); //合并  KeepAlive参数中的组件对象
         initUse(Vue); //  初始化vue 安装插件函数
         initMixin$1(Vue); //初始化vue mixin 函数
@@ -9355,6 +9360,7 @@
      * @param {*} exp
      */
     console.log(parseFilters(' ab | c | d')) //转化成 _f("d")(_f("c")(ab))
+    /*解析过滤器*/
     function parseFilters(exp) {
         // 是否在 ''中
         var inSingle = false;
@@ -12487,7 +12493,7 @@
             return decodingMap[match];
         })
     }
-
+    /*解析HTML*/
     function parseHTML(
         html, //字符串模板
         options //参数
